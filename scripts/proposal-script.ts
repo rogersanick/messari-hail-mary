@@ -15,7 +15,9 @@ async function main() {
   const eventKey = 'ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)'
   const eventFilter = contract.filters[eventKey]()
   const results = await contract.queryFilter(eventFilter, 10000000)
-  console.log(results)
+  results.forEach(event => {
+    console.log(event.args ? event.args[8] : "No Description Provided");
+  })
 }
 
 // We recommend this pattern to be able to use async/await everywhere
