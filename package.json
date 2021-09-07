@@ -3,6 +3,8 @@
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@typechain/ethers-v5": "^5.0.0",
+    "@typechain/hardhat": "^0.0.1",
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.7.10",
@@ -11,15 +13,23 @@
     "ethers": "^5.4.6",
     "hardhat": "^2.6.2",
     "ts-node": "^10.2.1",
+    "typechain": "^4.0.3",
     "typescript": "^4.4.2"
   },
   "dependencies": {
+    "@nomiclabs/hardhat-etherscan": "^2.1.6",
     "@nomiclabs/hardhat-web3": "^2.0.0",
     "axios": "^0.21.3",
     "dotenv": "^10.0.0",
+    "hardhat-abi-exporter": "^2.3.0",
+    "mongodb": "^4.1.1",
+    "mongoose": "^6.0.5",
+    "temp": "^0.9.4",
     "tsc": "^2.0.3"
   },
   "scripts": {
-    "start": "npx hardhat run ./scripts/proposal-script.ts"
+    "getABI": "npx hardhat run ./scripts/getLatestABI.ts",
+    "generateTypes": "npx typechain --target ethers-v5",
+    "start": "npx hardhat run ./scripts/buildProposalStore.ts"
   }
 }
