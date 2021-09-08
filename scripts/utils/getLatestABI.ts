@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default function () : Promise<string> {
+export function getLatestABI() : Promise<string> {
     return new Promise(async (resolve, reject) => {
         const contractAddress = process.env.GOVERNOR_ALPHA_CONTRACT_ADDRESS
         const apiKey = process.env.ETHERSCAN_API_KEY
