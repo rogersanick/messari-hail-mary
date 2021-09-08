@@ -1,11 +1,12 @@
 import { ethers } from "hardhat";
 import { Mongoose } from "mongoose";
 
-import getLatestABI from './utils/getLatestABI';
+import { getLatestABI } from './utils/getLatestABI';
+import { generateHistoricalStates, groupEventByProposalID } from "./utils/getHistoricalStates";
 import initializeClient from './database';
 import {
   GovernorAlphaProposal, 
-  GovernorAlphaProposalType,
+  GovernorAlphaProposalModelType,
   GovernorAlphaProposalSchema,
   GOVERNOR_ALPHA_PROPOSAL_MODEL_NAME
 } from './models/ProposalModel';
@@ -16,6 +17,7 @@ async function main() {
 
   // Retrieve the contract ABI
   const provider = ethers.getDefaultProvider()
+  const currentBlockNumber = await provider.getBlockNumber()
   const abi = await getLatestABI()
   const contract = await new ethers.Contract(
     process.env.GOVERNOR_ALPHA_CONTRACT_ADDRESS || "",
@@ -25,21 +27,30 @@ async function main() {
 
   // Use the event key as defined by the smart contract to retrieve all events 
   // emitted with the specified key from the node.
-  const eventFilter = contract.filters.ProposalCreated(null,null,null,null,null,null,null,null,null);
-  const results = await contract.queryFilter(eventFilter, 10000000)
 
-  // Store all of the retrieved events 
+
+  // Get all of the other emitted events to account for historical states
+  const createEvents = await contract.queryFilter(contract.filters.ProposalCreated(null,null,null,null,null,null,null,null,null))
+  const cancelEvents = await contract.queryFilter(contract.filters.ProposalCanceled(null))
+  const executeEvents = await contract.queryFilter(contract.filters.ProposalExecuted(null))
+  const queueEvents = await contract.queryFilter(contract.filters.ProposalQueued(null, null))
+
+  // Group the events by proposal ID for easy access in event formatted
+  const groupedEvents = groupEventByProposalID([...createEvents, ...cancelEvents, ...executeEvents, ...queueEvents])
+
+  // Store all of the retrieved events
   const client: Mongoose = await initializeClient()
-  const GovernorAlphaProposalModel = client.model<GovernorAlphaProposalType>(GOVERNOR_ALPHA_PROPOSAL_MODEL_NAME, GovernorAlphaProposalSchema);
-
-  [results[0]].forEach(result => {
-    const formattedData = new GovernorAlphaProposal(result)
+  const GovernorAlphaProposalModel = client.model<GovernorAlphaProposalModelType>(GOVERNOR_ALPHA_PROPOSAL_MODEL_NAME, GovernorAlphaProposalSchema);
+  createEvents.forEach(async createdEvent => {
+    const ID = createdEvent.args!.id
+    const historicalStates = await generateHistoricalStates(contract, createdEvent, groupedEvents[ID], currentBlockNumber)
+    const formattedData = new GovernorAlphaProposal(createdEvent, historicalStates)
     GovernorAlphaProposalModel.findOneAndUpdate(
       { id: formattedData.id },
       formattedData,
       { upsert: true, new: true }
     ).then((record) => {
-        console.log(`Successfully saved record with id ${result.args!.id.toHexString()}`);
+        console.log(`Successfully saved record with id ${record.id}`);
     }).catch((err: Error) => console.log(err));
   })
 } 

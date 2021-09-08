@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import getLatestABI from './utils/getLatestABI';
+import { getLatestABI } from './utils/getLatestABI';
 
 async function main() {
   const abi = await getLatestABI();
