@@ -3,9 +3,9 @@ import { Mongoose } from "mongoose";
 
 import getLatestABI from './utils/getLatestABI';
 import initializeClient from './database';
-import { 
-  convertRecordToSchemaData, 
+import {
   GovernorAlphaProposal, 
+  GovernorAlphaProposalType,
   GovernorAlphaProposalSchema,
   GOVERNOR_ALPHA_PROPOSAL_MODEL_NAME
 } from './models/ProposalModel';
@@ -30,10 +30,10 @@ async function main() {
 
   // Store all of the retrieved events 
   const client: Mongoose = await initializeClient()
-  const GovernorAlphaProposalModel = client.model<GovernorAlphaProposal>(GOVERNOR_ALPHA_PROPOSAL_MODEL_NAME, GovernorAlphaProposalSchema);
+  const GovernorAlphaProposalModel = client.model<GovernorAlphaProposalType>(GOVERNOR_ALPHA_PROPOSAL_MODEL_NAME, GovernorAlphaProposalSchema);
 
-  results.forEach(result => {
-    const formattedData = convertRecordToSchemaData(result.args)
+  [results[0]].forEach(result => {
+    const formattedData = new GovernorAlphaProposal(result)
     GovernorAlphaProposalModel.findOneAndUpdate(
       { id: formattedData.id },
       formattedData,
