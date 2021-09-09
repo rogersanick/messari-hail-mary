@@ -8,6 +8,7 @@
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.7.10",
+    "@types/node-cron": "^2.0.4",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "chai": "^4.3.4",
@@ -27,12 +28,14 @@
     "hardhat-abi-exporter": "^2.3.0",
     "mongodb": "^4.1.1",
     "mongoose": "^6.0.5",
+    "node-cron": "^3.0.0",
     "temp": "^0.9.4",
     "tsc": "^2.0.3"
   },
   "scripts": {
+    "service": "npx hardhat run ./scripts/scheduleService.ts",
     "getABI": "npx hardhat run ./scripts/getLatestABI.ts",
     "generateTypes": "npx typechain --target ethers-v5",
-    "start": "npx hardhat run ./scripts/buildProposalStore.ts"
+    "start": "npx hardhat run ./scripts/runService.ts"
   }
 }
