@@ -3,6 +3,7 @@ import path from 'path';
 
 const logPath = path.resolve('logs/combined.log');
 const errorLogPath = path.resolve('logs/error.log');
+console.log(process.env.NODE_ENV)
 export const logger = winston.createLogger({
   level: 'info',
   format: format.combine(

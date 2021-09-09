@@ -5,7 +5,7 @@ import { Event } from 'ethers';
 
 import { getLatestABI } from './utils/getLatestABI';
 // eslint-disable-next-line import/extensions
-import { logger } from 'utils/Logger';
+import { logger } from './utils/Logger';
 import { generateHistoricalStates, groupEventByProposalID } from './utils/getHistoricalStates';
 import initializeClient from './database';
 import {
@@ -61,6 +61,6 @@ export async function buildProposalStore(): Promise<void> {
       { upsert: true, new: true },
     ).then((record) => {
       logger.info(`Successfully saved record with id ${record.id}`);
-    }).catch((err: Error) => logger.info(`Failed to persist record with id: ${id}, error is: ${err}`));
+    }).catch((err: Error) => logger.info(`Failed to persist record with id: ${ID}, error is: ${err}`));
   }));
 }

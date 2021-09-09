@@ -38,7 +38,7 @@
     "winston": "^3.3.3"
   },
   "scripts": {
-    "service": "NODE_ENV=development npx hardhat run ./scripts/scheduleService.ts",
+    "service": "NODE_ENV=production npx hardhat run ./scripts/scheduleService.ts",
     "getABI": "npx hardhat run ./scripts/getLatestABI.ts",
     "generateTypes": "npx typechain --target ethers-v5",
     "start": "NODE_ENV=development npx hardhat run ./scripts/runService.ts",
