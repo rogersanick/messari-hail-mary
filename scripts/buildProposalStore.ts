@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ethers } from "hardhat";
 import { Mongoose } from "mongoose";
 
@@ -58,8 +59,9 @@ async function main() {
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main()
-  .then(() => {}) 
-  .catch((error) => {
+  .then(() => {
+    console.log("Process Complete")
+  }).catch((error) => {
     console.error(error);
     process.exit(1);
   });

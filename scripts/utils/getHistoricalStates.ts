@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BigNumber } from "@ethersproject/bignumber";
 import { Event } from "@ethersproject/contracts";
 import { GovernorAlphaABI } from "../../types/ethers-contracts";
