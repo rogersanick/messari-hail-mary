@@ -26,11 +26,7 @@ async function main() {
     provider
   ) as GovernorAlphaABI;
 
-  // Use the event key as defined by the smart contract to retrieve all events 
-  // emitted with the specified key from the node.
-
-
-  // Get all of the other emitted events to account for historical states
+  // Get all emitted events related to proposals to generate historical states
   const createEvents = await contract.queryFilter(contract.filters.ProposalCreated(null,null,null,null,null,null,null,null,null))
   const cancelEvents = await contract.queryFilter(contract.filters.ProposalCanceled(null))
   const executeEvents = await contract.queryFilter(contract.filters.ProposalExecuted(null))
