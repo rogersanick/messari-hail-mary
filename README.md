@@ -63,23 +63,22 @@ Once you have cloned the git repo, setup is simple! All you need is `npm`, `node
 
 NOTE: If you don't have homebrew install - please visit the following [link](https://docs.brew.sh/Installation)
 
-Once you have the necessary dependencies, starting the application is as simple as running the two following commands. This will run the process
-a single time and then exit.
+## Usage
+
+Once you have the necessary dependencies, starting the application is as simple as running the two following commands. Data can be retrieved directly from the MongoDB instance specified once the process has run successfully. Enjoy exploring! 
+
+This will run the process a single time and then exit.
 
 ```bash
     npm install
     npm run start
 ```
 
-Or you can run the process as a service using the following command.
+Or you can run the process as a service.
 
 ```bash
     npm run service
 ```
-
-## Usage
-
-Data can be retrieved directly from the MongoDB instance specified once the process has run successfully. Enjoy exploring! 
 
 ## Logging
 
