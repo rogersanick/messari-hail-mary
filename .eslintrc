@@ -2,11 +2,33 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "plugins": [
-      "@typescript-eslint"
+      "@typescript-eslint",
+      "import"
     ],
     "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended"
-    ]
+      "plugin:@typescript-eslint/recommended",
+      "plugin:import/typescript"
+    ],
+    "rules": {
+      "import/extensions": [
+        "error",
+        "always",
+        {
+          "js": "never",
+          "jsx": "never",
+          "ts": "never",
+          "tsx": "never"
+        }
+     ],
+      "import/prefer-default-export": "off",
+      "@typescript-eslint/indent": ["error", 2],
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-explicit-any": "error",
+      "max-len": ["error", { "code": 120 }],
+      "no-shadow": "off",
+      "@typescript-eslint/no-shadow": ["error"],
+      "no-plusplus": "off"
+    }
   }
