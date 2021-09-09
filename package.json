@@ -38,10 +38,10 @@
     "winston": "^3.3.3"
   },
   "scripts": {
-    "service": "npx hardhat run ./scripts/scheduleService.ts",
+    "service": "NODE_ENV=development npx hardhat run ./scripts/scheduleService.ts",
     "getABI": "npx hardhat run ./scripts/getLatestABI.ts",
     "generateTypes": "npx typechain --target ethers-v5",
-    "start": "npx hardhat run ./scripts/runService.ts",
+    "start": "NODE_ENV=development npx hardhat run ./scripts/runService.ts",
     "lint": "eslint scripts/**.ts ",
     "lint:fix": "eslint scripts/**.ts --fix",
     "prettier": "prettier scripts/**/*.ts",

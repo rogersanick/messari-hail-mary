@@ -1,0 +1,4 @@
+{"message":"PROCESS STARTED: Retrieving API from etherscan and writing to data/abi dist folder.","level":"info","service":"user-service"}
+{"message":"SUCCESS: Retrieved ABI from etherscan. Data written to: /Users/nicholasrogers/Coding/messari-hail-mary/data/abi/GovernorAlphaABI.abi ","level":"info","service":"user-service"}
+info: PROCESS STARTED: Retrieving API from etherscan and writing to data/abi dist folder. {"service":"user-service","label":"[MESSARI-HAIL-MARY]","timestamp":"2021-09-09 12:44:51"}
+info: SUCCESS: Retrieved ABI from etherscan. Data written to: /Users/nicholasrogers/Coding/messari-hail-mary/data/abi/GovernorAlphaABI.abi  {"service":"user-service","label":"[MESSARI-HAIL-MARY]","timestamp":"2021-09-09 12:44:51"}
